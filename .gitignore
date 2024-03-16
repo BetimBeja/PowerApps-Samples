@@ -290,3 +290,4 @@ __pycache__/
 
 # MAC OS
 .DS_Store
+*storybook.log

@@ -1,0 +1,43 @@
+{
+  "name": "@shko.online/component-framework-storybook",
+  "version": "0.1.0",
+  "description": "Stories for Microsoft Samples",
+  "main": "index.js",
+  "dependencies": {
+    "@fluentui/react": "8.29.0",
+    "@fluentui/react-hooks": "8.5.4",
+    "react": "16.8.6",
+    "react-dom": "16.8.6"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "(npm run install:WebAPIControl) && (npm run install:TableGrid) && (npm run install:TableControl) && (npm run install:ReactStandardControl) && (npm run install:AngularJSFlipControl)",
+    "install:WebAPIControl": "cd ../WebAPIControl && npm i && npm run refreshTypes",
+    "install:TableGrid": "cd ../TableGrid && npm i && npm run refreshTypes",
+    "install:TableControl": "cd ../TableControl && npm i && npm run refreshTypes",
+    "install:ReactStandardControl": "cd ../ReactStandardControl && npm i && npm run refreshTypes",
+    "install:AngularJSFlipControl": "cd ../AngularJSFlipControl && npm i && npm run refreshTypes",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "chromatic": "npx chromatic --project-token=chpt_b9d4be001ac014b"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@shko.online/componentframework-mock": "^0.5.0",
+    "@storybook/addon-essentials": "^8.0.0",
+    "@storybook/addon-interactions": "^8.0.0",
+    "@storybook/addon-links": "^8.0.0",
+    "@storybook/addon-onboarding": "^8.0.0",
+    "@storybook/addon-webpack5-compiler-babel": "^3.0.3",
+    "@storybook/blocks": "^8.0.0",
+    "@storybook/html": "^8.0.0",
+    "@storybook/html-webpack5": "^8.0.0",
+    "@storybook/test": "^8.0.0",
+    "chromatic": "^11.0.8",
+    "esbuild-loader": "^4.1.0",
+    "prop-types": "^15.8.1",
+    "raw-loader": "^4.0.2",
+    "storybook": "^8.0.0"
+  }
+}

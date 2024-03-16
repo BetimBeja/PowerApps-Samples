@@ -1,0 +1,12 @@
+{
+    "extends": "../WebAPIControl/node_modules/pcf-scripts/tsconfig_base.json",
+    "compilerOptions": {
+    
+        "sourceMap": true,
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "jsx": "react",
+        "allowSyntheticDefaultImports": true
+    },
+  
+}

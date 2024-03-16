@@ -1,0 +1,46 @@
+name: Deploy Storybook to Chromatic
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["feat/storybook"]
+  workflow_dispatch:
+
+# Allow one concurrent deployment
+concurrency:
+  group: "chromatic"
+  cancel-in-progress: true
+
+jobs:
+  # Build job
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Warn missing Chromatic configuration
+        env:
+          super_secret: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+        if: ${{ env.super_secret == '' }}
+        run: |
+          echo "Please add your project to chromatic and configure the CHROMATIC_PROJECT_TOKEN secret"
+          exit -1
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Setup NodeJs
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: "npm"
+          cache-dependency-path: storybook/package-lock.json
+      - name: Install Dependencies
+        run: npm install
+        working-directory: "./storybook"
+
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        # Chromatic GitHub Action options
+        with:
+          workingDir: "./storybook"
+          # 👇 Chromatic projectToken, refer to the manage page to obtain it.
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
