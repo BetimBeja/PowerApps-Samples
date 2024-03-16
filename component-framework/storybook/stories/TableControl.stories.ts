@@ -6,7 +6,9 @@ import resource from "raw-loader!!../../TableControl/TableControl/strings/TableC
 import { useArgs, useEffect } from "@storybook/preview-api";
 import { TableControl as Component } from "./Components/TableControl";
 import {
+  AttributeType,
   ComponentFrameworkMockGenerator,
+  ShkoOnline,
   StringPropertyMock,
 } from "@shko.online/componentframework-mock";
 import "../../TableControl/TableControl/css/TableControl.css";
@@ -44,25 +46,68 @@ const renderGenerator = () => {
         container
       );
       mockGenerator.SetControlResource(resource);
-      mockGenerator.context.userSettings.userName = 'Betim Beja';
+
+      mockGenerator.metadata.initMetadata([
+        {
+          LogicalName: "account",
+          EntitySetName: "accounts",
+          PrimaryIdAttribute: "accountid",
+          PrimaryNameAttribute: "name",
+          Attributes: [
+            {
+              AttributeType: AttributeType.Uniqueidentifier,
+              LogicalName: "accountid",
+              SchemaName: "AccountId",
+            } as ShkoOnline.AttributeMetadata,
+            {
+              AttributeType: AttributeType.String,
+              LogicalName: "name",
+              SchemaName: "Name",
+            } as ShkoOnline.StringAttributeMetadata,
+            {
+              AttributeType: AttributeType.Money,
+              LogicalName: "revenue",
+              SchemaName: "revenue",
+            } as ShkoOnline.AttributeMetadata,
+          ],
+        },
+      ]);
+
+      mockGenerator.metadata.initItems({
+        "@odata.context": "#accounts",
+        value: [
+          {          
+            name: 'Shko Online',
+            revenue: 120000
+          },
+        ],
+      });
+
+      mockGenerator.context._SetCanvasItems({
+        stringProperty: ''
+      });
+
+      mockGenerator.context.userSettings.userName = "Betim Beja";
       mockGenerator.context.mode.isControlDisabled = args.isDisabled;
       mockGenerator.context.mode.isVisible = args.isVisible;
       mockGenerator.context.utils.lookupObjects.callsFake(
         (lookupOptions: ComponentFramework.UtilityApi.LookupOptions) => {
           return new Promise<ComponentFramework.LookupValue[]>((resolve) => {
+          var rows =  mockGenerator.metadata.GetAllRows(lookupOptions.entityTypes
+              ? lookupOptions.entityTypes[0]
+              : "account")
             resolve([
               {
                 entityType: lookupOptions.entityTypes
                   ? lookupOptions.entityTypes[0]
                   : "account",
-                id: "00000000-0000-0000-0000-000000000004",
-                name: "Account",
+                id: rows.rows[0].accountid || "00000000-0000-0000-0000-000000000004",
+                name: rows.rows[0].name || "Account",
               },
             ]);
           });
         }
       );
-    
 
       mockGenerator.ExecuteInit();
     }
@@ -80,7 +125,5 @@ const renderGenerator = () => {
 
 export const TableControl = {
   render: renderGenerator(),
-  args: {
-   
-  },
+  args: {},
 } as StoryObj<StoryArgs>;

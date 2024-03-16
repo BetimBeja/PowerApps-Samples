@@ -13,6 +13,39 @@ import "../../TableGrid/TableGrid/css/TableGrid.css";
 
 export default {
   title: "PowerApps Samples/TableGrid",
+  argTypes: {
+    displayNameId: {
+      name: "Id",
+      control: "text",
+      table: {
+        category: "Parameters",
+        subcategory: "Metadata - Column Display Names",
+      },
+    },
+    displayNameAlias: {
+      name: "Alias",
+      control: "text",
+      table: {
+        category: "Parameters",
+        subcategory: "Metadata - Column Display Names",
+      },
+    },
+    displayNameAlias2: {
+      name: "Alias2",
+      control: "text",
+      table: {
+        category: "Parameters",
+        subcategory: "Metadata - Column Display Names",
+      },
+    },
+    items: {
+      name: "Items",
+      control: "object",
+      table: {
+        category: "Parameters",
+      },
+    },
+  },
 } as Meta<StoryArgs>;
 
 interface StoryArgs {
@@ -24,14 +57,9 @@ interface StoryArgs {
     alias2: string;
   }[];
 
-  Columns: {
-    alias: string;
-    dataType: "string";
-    displayName: string;
-    name: string;
-    order: number;
-    visualSizeFactor: number;
-  }[];
+  displayNameId: string;
+  displayNameAlias: string;
+  displayNameAlias2: string;
 }
 
 const renderGenerator = () => {
@@ -60,10 +88,28 @@ const renderGenerator = () => {
       mockGenerator.SetControlResource(resource);
       mockGenerator.context.mode.isControlDisabled = args.isDisabled;
       mockGenerator.context.mode.isVisible = args.isVisible;
+
       mockGenerator.context._parameters.simpleTableGrid._InitItems(
         args.items || []
       );
-    
+      mockGenerator.metadata.UpdateValue<string>(
+        args.displayNameId,
+        `!!simpleTableGrid@columns`,
+        "displayName",
+        "id"
+      );
+      mockGenerator.metadata.UpdateValue<string>(
+        args.displayNameAlias,
+        `!!simpleTableGrid@columns`,
+        "displayName",
+        "alias"
+      );
+      mockGenerator.metadata.UpdateValue<string>(
+        args.displayNameAlias2,
+        `!!simpleTableGrid@columns`,
+        "displayName",
+        "alias2 "
+      );
 
       mockGenerator.ExecuteInit();
     }
@@ -82,24 +128,9 @@ const renderGenerator = () => {
 export const TableGrid = {
   render: renderGenerator(),
   args: {
-    Columns: [
-      {
-        alias: "alias1",
-        dataType: "string",
-        displayName: "First Mocked Column",
-        name: "alias",
-        order: 1,
-        visualSizeFactor: 200,
-      },
-      {
-        alias: "alias2",
-        dataType: "string",
-        displayName: "Second Mocked Column",
-        name: "alias2",
-        order: 2,
-        visualSizeFactor: 200,
-      },
-    ],
+    displayNameAlias: "First Mocked Column",
+    displayNameAlias2: "Second Mocked Column",
+    displayNameId: "Record Id",
     items: [
       {
         id: "1",

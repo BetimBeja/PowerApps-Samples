@@ -15,8 +15,13 @@ export default {
   title: "PowerApps Samples/ReactStandardControl",
   argTypes: {
     numberOfFaces: {
+      name: "Number of Faces",
       options: [1, 2, 3, 4, 5], // iterator,
       control: "select",
+      table: {
+        category: "Parameters",
+        defaultValue: { summary: "3" },
+      },
     },
   },
 } as Meta<StoryArgs>;
@@ -81,6 +86,6 @@ const renderGenerator = () => {
 export const ReactStandardControl = {
   render: renderGenerator(),
   args: {
-    numberOfFaces: 2,
+    numberOfFaces: 3,
   },
 } as StoryObj<StoryArgs>;

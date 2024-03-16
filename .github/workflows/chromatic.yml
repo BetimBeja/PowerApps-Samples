@@ -32,15 +32,15 @@ jobs:
         with:
           node-version: 18
           cache: "npm"
-          cache-dependency-path: storybook/package-lock.json
+          cache-dependency-path: component-framework/storybook/package-lock.json
       - name: Install Dependencies
         run: npm install
-        working-directory: "./storybook"
+        working-directory: "./component-framework/storybook"
 
       - name: Publish to Chromatic
         uses: chromaui/action@v1
         # Chromatic GitHub Action options
         with:
-          workingDir: "./storybook"
+          workingDir: "./component-framework/storybook"
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}

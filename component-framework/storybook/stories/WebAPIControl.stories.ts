@@ -82,7 +82,4 @@ const renderGenerator = () => {
 
 export const WebAPIControl = {
     render: renderGenerator(),
-    args: {
-
-    },
 } as StoryObj<StoryArgs>;
