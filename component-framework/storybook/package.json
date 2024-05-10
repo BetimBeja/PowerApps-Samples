@@ -11,8 +11,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "(npm run install:WebAPIControl) && (npm run install:TableGrid) && (npm run install:TableControl) && (npm run install:ReactStandardControl) && (npm run install:AngularJSFlipControl)",
+    "postinstall": "(npm run install:PortalWebAPIControl) && (npm run install:WebAPIControl) && (npm run install:TableGrid) && (npm run install:TableControl) && (npm run install:ReactStandardControl) && (npm run install:AngularJSFlipControl)",
     "install:WebAPIControl": "cd ../WebAPIControl && npm i && npm run refreshTypes",
+    "install:PortalWebAPIControl": "cd ../../portals/PortalWebAPIControl && npm i && npm run refreshTypes",
     "install:TableGrid": "cd ../TableGrid && npm i && npm run refreshTypes",
     "install:TableControl": "cd ../TableControl && npm i && npm run refreshTypes",
     "install:ReactStandardControl": "cd ../ReactStandardControl && npm i && npm run refreshTypes",
@@ -24,20 +25,20 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@shko.online/componentframework-mock": "^0.5.0",
-    "@storybook/addon-essentials": "^8.0.0",
-    "@storybook/addon-interactions": "^8.0.0",
-    "@storybook/addon-links": "^8.0.0",
-    "@storybook/addon-onboarding": "^8.0.0",
+    "@shko.online/componentframework-mock": "^0.6.3",
+    "@storybook/addon-essentials": "^8.0.10",
+    "@storybook/addon-interactions": "^8.0.10",
+    "@storybook/addon-links": "^8.0.10",
+    "@storybook/addon-onboarding": "^8.0.10",
     "@storybook/addon-webpack5-compiler-babel": "^3.0.3",
-    "@storybook/blocks": "^8.0.0",
-    "@storybook/html": "^8.0.0",
-    "@storybook/html-webpack5": "^8.0.0",
-    "@storybook/test": "^8.0.0",
+    "@storybook/blocks": "^8.0.10",
+    "@storybook/html": "^8.0.10",
+    "@storybook/html-webpack5": "^8.0.10",
+    "@storybook/test": "^8.0.10",
     "chromatic": "^11.0.8",
     "esbuild-loader": "^4.1.0",
     "prop-types": "^15.8.1",
     "raw-loader": "^4.0.2",
-    "storybook": "^8.0.0"
+    "storybook": "^8.0.10"
   }
 }

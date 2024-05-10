@@ -178,10 +178,10 @@
 			this.updateResultContainerText("Web API sample custom control loaded");
 		}	
 		
-		private createButtonOnClickHandler(event: Event): void {
+		private createButtonOnClickHandler(event?: MouseEvent): void {
 			// Retrieve the value to set the currency field to from the button's attribute
 			const currencyAttributeValue: number = parseInt(
-				(event.target as Element)?.attributes?.getNamedItem("buttonvalue")?.value ?? "0"
+				(event?.target as Element)?.attributes?.getNamedItem("buttonvalue")?.value ?? "0"
 			);
 	
 			// Generate unique record name by appending timestamp to _requiredAttributeValue
@@ -224,7 +224,8 @@
 		}
 
 		private PopulateItemsToDelete(): void{
-			var i, L = this._dropDownList.options.length - 1;
+			let i; 
+			const L = this._dropDownList.options.length - 1;
 			for(i = L; i >= 0; i--) 
 			{
 				this._dropDownList.options.remove(i);
@@ -234,12 +235,12 @@
 			// Invoke the Web API Retrieve Multiple call
 			this._context.webAPI.retrieveMultipleRecords(PortalWebAPIControl._entityName, queryString).then(
 				(response: ComponentFramework.WebApi.RetrieveMultipleResponse) => {
-					var option = document.createElement("option");
+					const option = document.createElement("option");
 					option.value = "";
 					option.text = "";
 					this._dropDownList.appendChild(option);
 					for (const entity of response.entities) {
-						var option = document.createElement("option");
+						const option = document.createElement("option");
 						option.value = entity.accountid;
 						option.text = entity.name;
 						this._dropDownList.appendChild(option);
@@ -250,7 +251,7 @@
 		private deleteButtonOnClickHandler(): void {			
 			if(this._dropDownList.value != "")
 			{
-				var entityId = this._dropDownList.value;
+				const entityId = this._dropDownList.value;
 				this._context.webAPI.deleteRecord(PortalWebAPIControl._entityName, this._dropDownList.value).then(
 					(response: ComponentFramework.LookupValue) => {
 						const responseEntityType: string = response.entityType;
@@ -356,7 +357,7 @@
 			}
 		}
 	
-		private updateResultContainerTextWithErrorResponse(errorResponse: any): void {
+		private updateResultContainerTextWithErrorResponse(errorResponse: Error): void {
 			if (this._resultContainerDiv) {
 				// Retrieve the error message from the errorResponse and inject into the result div
 				let errorHTML = "Error with Web API call:";
@@ -374,7 +375,7 @@
 			return `create_button_${entityNumber}`;
 		}
 	
-		private createHTMLButtonElement(buttonLabel: string, buttonId: string, buttonValue: string | null, onClickHandler: (event?: any) => void): HTMLButtonElement {
+		private createHTMLButtonElement(buttonLabel: string, buttonId: string, buttonValue: string | null, onClickHandler: (event?: MouseEvent) => void): HTMLButtonElement {
 			const button: HTMLButtonElement = document.createElement("button");
 			button.innerHTML = buttonLabel;
 	
